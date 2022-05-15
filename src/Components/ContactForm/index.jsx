@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import isEmailValid from '../../Utils/EmailValidator';
+import formatPhone from '../../Utils/formatPhone';
 import useErrors from '../../Hooks/useErrors';
 
 import FormGroup from '../FormGroup';
@@ -16,7 +17,9 @@ function ContactForm({ buttonLabel }) {
   const [email, setEmail] = React.useState('');
   const [phone, setPhone] = React.useState('');
   const [category, setCategory] = React.useState('');
-  const { setErrorField, removeError, getErrorMessageByFieldName } = useErrors();
+  const { errors, setErrorField, removeError, getErrorMessageByFieldName } = useErrors();
+
+  const isFormValid = (name && errors.length === 0);
 
   function handleChangeName({ target }) {
     setName(target.value);
@@ -38,15 +41,19 @@ function ContactForm({ buttonLabel }) {
     }
   }
 
+  function handleChangePhone({ target }) {
+    setPhone(formatPhone(target.value));
+  }
+
   function handleSubmit() {}
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} noValidate>
       <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
           error={getErrorMessageByFieldName('name')}
           type='text'
-          placeholder='Nome'
+          placeholder='Nome *'
           value={name}
           onChange={handleChangeName}
         />
@@ -55,7 +62,7 @@ function ContactForm({ buttonLabel }) {
       <FormGroup error={getErrorMessageByFieldName('email')}>
         <Input
           error={getErrorMessageByFieldName('email')}
-          type='text'
+          type='email'
           placeholder='E-mail'
           value={email}
           onChange={handleChangeEmail}
@@ -66,8 +73,9 @@ function ContactForm({ buttonLabel }) {
         <Input
           type='text'
           placeholder='Telefone'
+          maxLength='15'
           value={phone}
-          onChange={({ target }) => setPhone(target.value)}
+          onChange={handleChangePhone}
         />
       </FormGroup>
 
@@ -83,7 +91,9 @@ function ContactForm({ buttonLabel }) {
       </FormGroup>
 
       <ButtonContainer>
-        <Button type='submit'>{buttonLabel}</Button>
+        <Button disabled={!isFormValid} type='submit'>
+          {buttonLabel}
+        </Button>
       </ButtonContainer>
     </Form>
   );
