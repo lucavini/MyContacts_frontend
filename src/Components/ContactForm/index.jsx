@@ -17,8 +17,10 @@ function ContactForm({ buttonLabel }) {
         <Input type='text' placeholder='Nome' />
       </FormGroup>
 
-      <FormGroup>
-        <Input type='text' placeholder='E-mail' />
+      <FormGroup
+        error='O formato de e-mail é inválido'
+      >
+        <Input type='text' placeholder='E-mail' error />
       </FormGroup>
 
       <FormGroup>

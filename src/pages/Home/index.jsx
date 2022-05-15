@@ -13,14 +13,10 @@ import {
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
-import Loader from '../../Components/Loader';
-// import Modal from '../../Components/Modal';
 
 function Home() {
   return (
     <Container>
-      {/* <Modal danger /> */}
-      <Loader />
       <InputSearchContainer>
         <input type='text' placeholder='pesquisar contato' />
       </InputSearchContainer>
