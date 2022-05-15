@@ -17,6 +17,7 @@
     "jsx-quotes": "off",
     "react/jsx-fragments": "off",
     "import/prefer-default-export": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "react/jsx-no-bind": "off"
   }
 }
